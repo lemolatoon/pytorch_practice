@@ -5,4 +5,10 @@ run:
 mypy:
 	mypy --strict .
 
-.PHONY: run mypy
+setup:
+	mkdir image -p
+	mkdir data -p
+	mkdir params -p
+	pip install requirements.txt
+
+.PHONY: run mypy setup
