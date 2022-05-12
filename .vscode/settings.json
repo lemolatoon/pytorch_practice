@@ -1,0 +1,50 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    // ファイルの終了時に行末のスペース削除
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "python.linting.lintOnSave": true,
+    //Tabをスペースキーとして変換
+    "[python]": {
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": true,
+        "editor.tabSize": 4,
+        "editor.wordBasedSuggestions": true
+    },
+    "python.pipenvPath": "/usr/local/bin/pipenv",
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--max-complexity",
+        "20"
+    ],
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--aggressive",
+        "--aggressive",
+    ],
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "editor.snippetSuggestions": "top",
+    "editor.suggest.showKeywords": false,
+    "python.linting.enabled": true,
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.extraPaths": [
+        "/usr/lib/python3/dist-packages"
+    ],
+    "python.autoComplete.extraPaths": [
+        "/usr/lib/python3/dist-packages"
+    ],
+    "python.analysis.typeCheckingMode": "strict",
+}
