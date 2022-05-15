@@ -23,11 +23,15 @@ def main() -> None:
     train_loader, test_loader = get_dataloader(train_set, test_set)
     print(len(train_loader))
     print(len(test_loader))
+    images, labels = iter(train_loader).next()
+    print(labels.shape)
+    print(torch.max(labels, 0)[0])
+    print(torch.min(labels, 0)[0])
 
     device = get_device()
     print(device)
 
-    net = Net().to(device)
+    net = Net(100).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(net.parameters(), lr=0.001)
 
@@ -99,7 +103,7 @@ def train(train_loader: Loader, test_loader: Loader, optimizer: optim.Adam, crit
 
 
 class Net(nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, kind:int = 10) -> None:
         super().__init__()
         self.conv1 = nn.Conv2d(
             in_channels=3, out_channels=32, kernel_size=(3, 3), padding="same"
@@ -120,7 +124,7 @@ class Net(nn.Module):
 
         self.fc1 = nn.Linear(in_features=64*32*32, out_features=512)
         self.drop3 = nn.Dropout(p=0.5)
-        self.fc2 = nn.Linear(in_features=512, out_features=10)
+        self.fc2 = nn.Linear(in_features=512, out_features=kind)
 
     def forward(self, x: Tensor) -> Tensor:
         x = F.relu(self.conv1(x))
@@ -148,14 +152,14 @@ def get_dataset() -> Tuple[Dataset[Tuple[Tensor, int]],
         transforms.Normalize(0.5, 0.5),
     ])
 
-    train_set: Dataset[Tuple[Tensor, int]] = datasets.CIFAR10(
+    train_set: Dataset[Tuple[Tensor, int]] = datasets.CIFAR100(
         root=data_root,
         train=True,
         download=True,
         transform=transform
     )
 
-    test_set = datasets.CIFAR10(
+    test_set = datasets.CIFAR100(
         root=data_root,
         train=True,
         download=False,
@@ -187,6 +191,7 @@ def check_data(data: Dataset[Tuple[Tensor, int]]):
 
 def get_device() -> torch.device:
     return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # return torch.device("cuda:0" if False else "cpu")
 
 
 def check_history():
@@ -302,7 +307,7 @@ def check_my_image(path="my.png"):
 
 
 def load_model(device: torch.device) -> Net:
-    net = Net().to(device)
+    net = Net(100).to(device)
     net.load_state_dict(torch.load("param.pt"))
     net.eval()
     return net
@@ -311,13 +316,14 @@ def load_model(device: torch.device) -> Net:
 if __name__ == "__main__":
 
     # predict image in conv/`path`
-    # check_my_image()
+    # check_my_image(my.jpg)
 
     # check acc in eval mode
-    # check_model(my.jpg)
+    # check_model()
 
     # create png which was generated while train phase
-    # check_history()
+    check_history()
+
 
     # train
-    main()
+    # main()
