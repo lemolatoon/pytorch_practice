@@ -1,7 +1,7 @@
-# program prodecing files
-image/*
-params/*
-data/*
+# mnist program prodecing files
+mnist/image/*
+mnist/params/*
+mnist/data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

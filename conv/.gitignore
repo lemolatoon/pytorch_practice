@@ -1,0 +1,6 @@
+*.png
+*.jpg
+*.Identifier
+*.pt
+*.pkl
+data/

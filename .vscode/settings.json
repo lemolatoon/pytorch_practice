@@ -15,7 +15,7 @@
     "python.pipenvPath": "/usr/local/bin/pipenv",
     "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
-    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Enabled": false,
     "python.linting.flake8Args": [
         "--max-line-length=120",
         "--max-complexity",
@@ -46,5 +46,7 @@
     "python.autoComplete.extraPaths": [
         "/usr/lib/python3/dist-packages"
     ],
-    "python.analysis.typeCheckingMode": "strict",
+    // "python.analysis.typeCheckingMode": "strict",
+    "[mypy]": {},
+    "mypy.configFile": "/root/.config/mypy/config/.mypy.ini",
 }
