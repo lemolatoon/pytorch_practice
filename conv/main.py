@@ -209,6 +209,28 @@ def check_history():
     plt.legend()
     plt.savefig("acc_curve.png")
 
+    print(f"initial: loss: {history[1, 3]}, acc: {history[1, 4]}")
+    print(f"last: loss: {history[-1, 3]}, acc: {history[-1, 4]}")
+    print(f"eval mode acc: {check_acc()}")
+
+
+def check_acc() -> float:
+    device = get_device()
+    net = load_model(device)
+    _, test_loader = get_dataloader(*get_dataset())
+    acc: float = 0.0
+    num_test: int = 0
+    images: Tensor
+    labels: Tensor
+    for images, labels in test_loader:
+        num_test += len(labels)
+        images = images.to(device)
+        labels = labels.to(device)
+        outputs = net(images)
+        _, predicted = torch.max(outputs, 1)
+        acc += (predicted == labels).sum().item()
+    return acc / num_test
+
 
 def check_model(test_loader: Optional[Loader] = None, net: Optional[Net] = None, index: int = 0):
     device = get_device()
